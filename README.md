@@ -1,90 +1,118 @@
-# PredictingTermDepositSubscription
-🏦 Predicting Term Deposit Subscription Using Direct Marketing Campaign Data
-A Machine Learning Approach to Optimize Bank Marketing Strategies
+# 🏦 Predicting Term Deposit Subscription Using Direct Marketing Campaign Data  
+*A Machine Learning Approach to Optimize Bank Marketing Strategies*  
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)  
+![PyTorch](https://img.shields.io/badge/PyTorch-Neural--Network-red?logo=pytorch&logoColor=white)  
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Modeling-orange?logo=scikit-learn&logoColor=white)  
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)  
 
+---
 
+## 🚀 Project Summary
+This project predicts whether a **bank customer will subscribe to a term deposit** following a direct marketing campaign.  
+Using a dataset from a **Portuguese bank’s phone-based marketing efforts**, we analyze how demographics, account info, and campaign interaction features influence subscription decisions.
 
-🚀 Project Summary
-This project predicts whether a bank customer will subscribe to a term deposit following a direct marketing campaign.
-Using a dataset from a Portuguese bank’s phone-based marketing efforts, we explored how customer demographics, financial attributes, and past interactions influence subscription decisions.
-🎯 Goal: Build predictive models that help banks target customers more effectively, reduce marketing costs, and improve conversion rates.
-📦 Table of Contents
-🎯 Problem Statement
-📚 Dataset
-🔍 Exploratory Data Analysis
-⚙️ Feature Engineering
-🧮 Model Development
-📊 Model Performance
-💡 Key Insights
-🛠️ Tools Used
-🗂️ Project Structure
-👩‍💻 Authors
-📄 References
-🎯 Problem Statement
-Banks collect massive amounts of customer data but often struggle to use it effectively in marketing.
-In this study, we focus on improving the targeting of term deposit offers by predicting whether a client will subscribe after being contacted.
-The project combines data preprocessing, feature engineering, and supervised learning to enhance decision-making and optimize marketing strategies.
-📚 Dataset
-Source: UCI Machine Learning Repository – Bank Marketing Dataset
-File Used: bank-full.csv
-Records: 45,211 customer records
-Features: 17 attributes (demographic, campaign, and economic variables)
-Target Variable: y (binary — yes if the customer subscribed to a term deposit, no otherwise)
-Category	Feature	Description
-Client Demographics	age, job, marital, education, default, housing, loan	Customer personal & financial details
-Campaign Details	contact, month, duration, campaign, pdays, previous, poutcome	Information from marketing interactions
-Target	y	Subscription outcome (yes/no)
-🔍 Exploratory Data Analysis
-Key findings from EDA include:
-Class Imbalance: Only 11.7% of customers subscribed (y='yes'), while 88.3% did not.
-Numerical Insights:
-age: Mean 40.9 years; distribution right-skewed.
-balance: Range −8019 to 102,127; significant outliers.
-duration: Longer calls correlated with higher likelihood of subscription.
-Categorical Insights:
-Higher subscription rates among single, educated, and non-defaulting customers.
-Cellular contacts and previous campaign success increased conversion probability.
-⚙️ Feature Engineering
-One-Hot Encoding: Applied to categorical features (job, marital, education, etc.).
-Binary Flags:
-long_campaign_contact → if campaign > 5
-recent_contact → if pdays < 10
-Interaction Terms:
-duration_campaign_interaction = duration × campaign
-contact_poutcome_interaction = contact + poutcome
-Binning:
-age grouped into Youth, Adult, Middle-Aged, Senior.
-Outliers in balance and duration were capped using the IQR method for improved stability.
-🧮 Model Development
-Data Preprocessing
-Train/Validation Split: 85% train-validation, 15% hidden test (stratified by target).
-SMOTE: Applied to balance the minority class.
-Scaling: StandardScaler used for numerical features.
-Models Implemented
-Model	Type	Library	Notes
-Logistic Regression	Custom Implementation	NumPy	Gradient Descent + L2 Regularization
-Naive Bayes	Custom	NumPy	With Laplace Smoothing
-Neural Network	Feedforward (1 hidden layer)	PyTorch	16 hidden neurons, ReLU activation
-📊 Model Performance
-Metric	Logistic Regression	Naive Bayes	Neural Network
-Training Accuracy (%)	85.31	78.72	91.35
-Validation Accuracy (%)	83.58	79.65	86.44
-Hidden Test Accuracy (%)	82.82	79.32	86.08
-ROC-AUC (Validation)	0.90	0.83	0.91
-Precision (Class 1)	40.01	31.58	45.07
-Recall (Class 1)	80.87	63.40	72.75
-F1-Score (Class 1)	82.23	82.33	87.75
-💡 Key Insights
-📞 Call duration and previous campaign success are the most influential features.
-📉 Imbalanced data was mitigated using SMOTE, improving recall but slightly reducing precision.
-🧠 Neural Network outperformed other models in F1-score and AUC but showed slight overfitting.
-⚖️ Logistic Regression offers strong generalization and interpretability—ideal for deployment.
-📊 Naive Bayes achieved decent recall but was limited by its independence assumptions.
-🛠️ Tools Used
-Python 3.8+
-Pandas, NumPy, Matplotlib, Seaborn
-Scikit-Learn
-Imbalanced-Learn (SMOTE)
-PyTorch
-SciPy
+> 🎯 **Goal:** Build predictive models that help banks target customers more effectively, reduce marketing costs, and improve conversion rates.
+
+---
+
+## 📦 Table of Contents
+- [🎯 Problem Statement](#-problem-statement)
+- [📚 Dataset](#-dataset)
+- [🔍 Exploratory Data Analysis](#-exploratory-data-analysis)
+- [⚙️ Feature Engineering](#️-feature-engineering)
+- [🧮 Model Development](#-model-development)
+- [📊 Model Performance](#-model-performance)
+- [💡 Key Insights](#-key-insights)
+- [🗂️ Project Structure](#️-project-structure)
+- [👩‍💻 Author](#-author)
+- [📄 References](#-references)
+
+---
+
+## 🎯 Problem Statement
+Direct marketing calls are expensive; **who should the bank contact?**  
+We predict the probability that a client subscribes (`y ∈ {yes, no}`) using:
+- Client attributes (`age`, `job`, `marital`, `education`, `default`, `housing`, `loan`)
+- Campaign attributes (`duration`, `campaign`, `pdays`, `previous`, `poutcome`)
+- Contact context (`contact`, `month`)
+
+---
+
+## 📚 Dataset
+- **Source:** [UCI Machine Learning Repository – Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)  
+- **File used:** `bank-full.csv` (`;` separated)  
+- **Records:** 45,211  
+- **Target:** `y` (term deposit subscription: `yes` / `no`)
+
+| Category | Example Features |
+|---|---|
+| Client Demographics | `age`, `job`, `marital`, `education`, `default`, `housing`, `loan` |
+| Campaign Details | `contact`, `month`, `duration`, `campaign`, `pdays`, `previous`, `poutcome` |
+| Target | `y` |
+
+---
+
+## 🔍 Exploratory Data Analysis
+- **Class imbalance:** ~**11.7% yes** vs **88.3% no**  
+- **Numerical:** `balance` and `duration` right-skewed with outliers; longer `duration` associates with higher conversion  
+- **Categorical:** higher subscription among **single**, **higher education**, **no default**; **cellular** contact and **previous success** drive better outcomes
+
+---
+
+## ⚙️ Feature Engineering
+- **One-Hot Encoding:** `job`, `marital`, `education`, `default`, `housing`, `loan`, `contact`, `month`, `poutcome`
+- **Binary flags:**  
+  - `long_campaign_contact = (campaign > 5)`  
+  - `recent_contact = (pdays < 10)`
+- **Interactions:**  
+  - `duration_campaign_interaction = duration × campaign`  
+  - `contact_poutcome_interaction = contact + '_' + poutcome`
+- **Age binning:** `Youth`, `Adult`, `Middle-Aged`, `Senior`
+- **Outliers:** IQR capping for `balance` and `duration`
+
+---
+
+## 🧮 Model Development
+**Data protocol**
+- **Split:** 85% train/validation, **15% hidden test** (stratified)
+- **Imbalance:** **SMOTE** on training only
+- **Scaling:** `StandardScaler` for numeric features
+
+**Models**
+- **Custom Logistic Regression** (NumPy; Gradient Descent + L2)
+- **Custom Bernoulli Naive Bayes** (binarized inputs; Laplace smoothing)
+- **PyTorch MLP** (1 hidden layer, 16 units, ReLU, BCEWithLogitsLoss, Adam)
+
+---
+
+## 📊 Model Performance
+*(Validation + hidden test from the notebook; fill in if you re-run with different splits.)*
+
+| Metric | Logistic Regression | Naive Bayes | Neural Network |
+|---|---:|---:|---:|
+| **Training Accuracy (%)** | 85.31 | 78.72 | **91.35** |
+| **Validation Accuracy (%)** | 83.58 | 79.65 | **86.44** |
+| **Hidden Test Accuracy (%)** | 82.82 | 79.32 | **86.08** |
+| **ROC-AUC (Validation)** | 0.90 | 0.83 | **0.91** |
+| **Precision (Class 1)** | 40.01 | 31.58 | **45.07** |
+| **Recall (Class 1)** | **80.87** | 63.40 | 72.75 |
+| **F1-Score (Class 1)** | 82.23 | 82.33 | **87.75** |
+
+Also included in the notebook: **confusion matrices**, **ROC & PR curves**, and **learning curves**.
+
+---
+
+## 💡 Key Insights
+- 📞 **Call duration** and **previous campaign success** are most influential  
+- ⚖️ **SMOTE** improves recall of the minority class but can lower precision  
+- 🧠 **Neural Network** achieves best overall metrics but shows mild overfitting  
+- ✅ **Logistic Regression** remains strong, interpretable, and deployment-friendly
+
+---
+
+## 🗂️ Project Structure
+```plaintext
+.
+├── term_deposit_prediction.ipynb   # End-to-end notebook (EDA → FE → models → evaluation)
+└── README.md                       # This file
