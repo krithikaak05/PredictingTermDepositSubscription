@@ -1,5 +1,5 @@
 # 🏦 Predicting Term Deposit Subscription Using Direct Marketing Campaign Data  
-*A Machine Learning Approach to Optimize Bank Marketing Strategies*  
+*A Machine Learning Approach to Optimize Bank Marketing Strategies To Opt for Term Deposits*  
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)  
 ![PyTorch](https://img.shields.io/badge/PyTorch-Neural--Network-red?logo=pytorch&logoColor=white)  
